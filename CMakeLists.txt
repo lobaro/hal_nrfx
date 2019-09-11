@@ -1,3 +1,17 @@
+project(hal_nrfx C ASM)
+cmake_minimum_required(VERSION 3.14)
+
+include(${CPATH}/src/github.com/lobaro/c-build/build.cmake)
+
+add_definitions(
+        -DNRF9160_XXAA=1
+)
+
+include_directories(nrfx nrfx/drivers/include nrfx/hal nrfx/mdk . cmsis/Core/Include)
+
+cbuild_module("nrfx/hal/nrf_(ecb|nvmc).c")
+
+if(0)
 if(CONFIG_HAS_NORDIC_DRIVERS)
   add_subdirectory(drivers)
 endif()
@@ -53,4 +67,5 @@ if(CONFIG_HAS_NRFX)
   zephyr_sources_ifdef(CONFIG_NRFX_UARTE   nrfx/drivers/src/nrfx_uarte.c)
   zephyr_sources_ifdef(CONFIG_NRFX_USBD    nrfx/drivers/src/nrfx_usbd.c)
   zephyr_sources_ifdef(CONFIG_NRFX_WDT     nrfx/drivers/src/nrfx_wdt.c)
+endif()
 endif()
